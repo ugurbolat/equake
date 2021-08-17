@@ -566,7 +566,9 @@ Needed to assign a new name for a new tab (e.g. its number)")
                  (null (cdr (assoc monitor equake--tab-list)))) ;; if no more etabs,
         (setf (alist-get monitor equake--max-tab-no) -1) ;; reset the "highest tab number" and
         ;; destroy the corresponding equake frame:
-        (delete-frame (select-frame-by-name (concat "*EQUAKE*[" (symbol-name monitor) "]")))))))
+        ;; (delete-frame (select-frame-by-name (concat "*EQUAKE*[" (symbol-name monitor) "]")))))))
+        ;; NOTE in order to add floating window exception of pop-shell, create a common frame name
+        (delete-frame (select-frame-by-name "EQUAKE"))))))
 
 (defun equake--tab-p (&optional buffer)
   "Return t if BUFFER is an Equake tab."
@@ -770,7 +772,9 @@ suitable for `make-frame' or `modify-frame-parameters'"
           (frame-xpos (floor (+ mon-xpos x-offset)))
           (frame-width (truncate (* mon-width equake-size-width)))
           (frame-height (truncate (* mon-height equake-size-height))))
-    (list (cons 'name (format "*EQUAKE*[%s]" monitor))
+    ;;(list (cons 'name (format "*EQUAKE*[%s]" monitor))
+    ;; NOTE for pop-shell tile floating window exception
+    (list (cons 'name "EQUAKE")
           (cons 'alpha `(,equake-opacity-active ,equake-opacity-inactive))
 
           (cons 'user-position t)
