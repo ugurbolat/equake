@@ -906,6 +906,10 @@ HISTORY is of format given by `window-prev-buffers'."
     (modify-frame-parameters nil '((vertical-scroll-bars . nil)
                                    (horizontal-scroll-bars . nil)))))
 
+;; NOTE solves the issue of open vterm buffer in another window
+;; use doom's +vterm/here instead of vterm
+(load-file "~/.emacs.d/modules/term/vterm/autoload.el")
+
 (defun equake--launch-shell (launchshell)
   "Launch a new shell session, LAUNCHSHELL will set non-default shell."
   (interactive)
@@ -917,13 +921,13 @@ HISTORY is of format given by `window-prev-buffers'."
            (eshell 'N))
           ((equal launchshell 'vterm)
            (if (require 'vterm nil 'noerror)
-               (vterm)
+               (+vterm/here nil)
              (setq success 'nil)))
           ((equal launchshell 'rash)
            (if (not equake-rash-installed)
                (setq success 'nil)
                (if (require 'vterm nil 'noerror)
-                   (vterm)
+                   (+vterm/here nil)
                  (shell)
                  (delete-other-windows))
              (rash-mode)))
