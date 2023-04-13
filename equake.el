@@ -908,7 +908,9 @@ HISTORY is of format given by `window-prev-buffers'."
 
 ;; NOTE solves the issue of open vterm buffer in another window
 ;; use doom's +vterm/here instead of vterm
-(load-file "~/.emacs.d/modules/term/vterm/autoload.el")
+;;(load-file "~/.emacs.d/modules/term/vterm/autoload.el")
+;; Load the vterm module
+(require 'vterm)
 
 (defun equake--launch-shell (launchshell)
   "Launch a new shell session, LAUNCHSHELL will set non-default shell."
